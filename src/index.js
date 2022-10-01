@@ -1,3 +1,3 @@
-import TVDataTable from'./components/TVDataTable.vue'
+import TVTable from'./components/TVTable.vue'
 
-export { TVDataTable }
+export { TVTable }

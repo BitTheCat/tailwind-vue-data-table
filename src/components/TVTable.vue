@@ -67,7 +67,7 @@
 import {defineComponent, ref} from 'vue';
 
 defineComponent({
-    name: 'TVDataTable'
+    name: 'TVTable'
 })
 
 const props = defineProps({
