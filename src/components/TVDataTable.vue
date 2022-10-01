@@ -5,7 +5,7 @@
                 <th
                     v-for="field in fields"
                     :key="field.label"
-                    class="px-2 py-1.5 text-xs font-medium text-black uppercase"
+                    class="px-2 py-1.5 text-xs font-medium uppercase"
                     :class="field.thClass"
                     :style="field.thStyle"
                 >
@@ -43,14 +43,14 @@
         </thead>
         <tbody class="px-2 py-1.5 text-left text-xs font-medium border">
             <tr 
-            v-for="(item) in items" 
-            :key="item.label" 
-            class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
+                v-for="(item) in items" 
+                :key="item.label" 
+                class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
             >
                 <td
                     v-for="field in fields"
                     :key="field.key"
-                    class="px-2 py-1.5 align-top lg:table-cell lg:text-left lg:align-middle last:border-b-0"
+                    class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
                     :class="field.tdClass"
                     :style="field.tdStyle"
                 >
