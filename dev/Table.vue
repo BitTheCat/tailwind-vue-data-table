@@ -1,16 +1,16 @@
 <template>
     <div class="grid gap-4">
         <span class="text-xs"> Simple </span> 
-        <TVDataTable
+        <TVTable
             :items="items"
             :fields="fieldsSimple"
         >
-        </TVDataTable>
+        </TVTable>
 
         <hr>
         
         <span class="text-xs">With Props</span>
-        <TVDataTable
+        <TVTable
             :items="items"
             :fields="fields"
             multiple-sortable
@@ -18,7 +18,7 @@
             <template #cell:username="{ item }">
                 {{ item.emoji }} - {{ item.username }}
             </template>
-        </TVDataTable>
+        </TVTable>
 
 
     </div>
@@ -26,7 +26,7 @@
 
 <script setup>
 import { defineComponent, ref } from 'vue';
-import TVDataTable from '../src/components/TVDataTable.vue';
+import TVTable from '../src/components/TVTable.vue';
 
 defineComponent({
   name: 'Table',
