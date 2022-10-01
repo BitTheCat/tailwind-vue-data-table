@@ -1,10 +1,11 @@
 <template>
-    <table>
-        <thead>
-            <tr>
+    <table class="min-w-full ">
+        <thead class="bg-gray-300 border">
+            <tr class="divide-x divide-y">
                 <th
                     v-for="field in fields"
                     :key="field.label"
+                    class="px-2 py-1.5 text-xs font-medium text-black uppercase"
                     :class="field.thClass"
                     :style="field.thStyle"
                 >
@@ -19,7 +20,7 @@
                                 viewBox="0 0 24 24"
                                 :stroke-width="sortable[field.key] === 'asc' ? 4 : 2"
                                 stroke="currentColor"
-                                class="table-sort"
+                                class="w-2.5 h-2.5 cursor-pointer"
                                 @click="updateSortable(field.key, 'asc')"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -30,7 +31,7 @@
                                 viewBox="0 0 24 24"
                                 :stroke-width="sortable[field.key] === 'desc' ? 4 : 2"
                                 stroke="currentColor"
-                                class="table-sort"
+                                class="w-2.5 h-2.5 cursor-pointer"
                                 @click="updateSortable(field.key, 'desc')"
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -40,11 +41,16 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-            <tr v-for="(item) in items" :key="item.label">
+        <tbody class="px-2 py-1.5 text-left text-xs font-medium border">
+            <tr 
+            v-for="(item) in items" 
+            :key="item.label" 
+            class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
+            >
                 <td
                     v-for="field in fields"
                     :key="field.key"
+                    class="px-2 py-1.5 align-top lg:table-cell lg:text-left lg:align-middle last:border-b-0"
                     :class="field.tdClass"
                     :style="field.tdStyle"
                 >
@@ -91,49 +97,3 @@ const updateSortable = (key, sort) => {
     emit('updateSortable', sortable.value)
 }
 </script>
-
-<style>
-table {
-    @apply min-w-full ;
-}
-
-thead {
-    @apply bg-gray-300 border;
-}
-
-tr {
-    @apply divide-x divide-y;
-}
-
-tr:last-child {
-    @apply border-b-0;
-}
-
-th {
-    @apply px-2 py-1.5 text-xs font-medium text-black uppercase;
-}
-
-td {
-    @apply px-2 py-1.5 align-top lg:table-cell lg:text-left lg:align-middle;
-}
-
-td:last-child {
-    @apply border-b-0;
-}
-
-tbody tr, tbody {
-    @apply px-2 py-1.5 text-left text-xs font-medium border;
-}
-
-tbody tr:nth-child(odd) {
-    @apply bg-gray-300/50 hover:bg-gray-400/50;
-}
-
-tbody tr:nth-child(even) {
-    @apply bg-gray-100/50 hover:bg-gray-400/50 ;
-}
-
-.table-sort {
-    @apply w-2.5 h-2.5 cursor-pointer
-}
-</style>
