@@ -1,6 +1,11 @@
 # Tailwind Vue Data Table
 
-<img src="tvdatatable.jpg"/>
+<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/tvdatatable.jpg"/>
+
+### Use in Vue
+``` js
+import { TVDataTable } from '@bitthecat/tailwind-vue-data-table' 
+```
 
 ### Next additions
 - Select row column (with checkbox)

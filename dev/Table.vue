@@ -8,7 +8,7 @@
         </TVDataTable>
 
         <hr>
-
+        
         <span class="text-xs">With Props</span>
         <TVDataTable
             :items="items"
@@ -94,3 +94,49 @@ const items = ref([
 ])
 
 </script>
+
+<style>
+table {
+    @apply min-w-full ;
+}
+
+thead {
+    @apply bg-gray-300 border;
+}
+
+tr {
+    @apply divide-x divide-y;
+}
+
+tr:last-child {
+    @apply border-b-0;
+}
+
+th {
+    @apply px-2 py-1.5 text-xs font-medium text-black uppercase;
+}
+
+td {
+    @apply px-2 py-1.5 align-top lg:table-cell lg:text-left lg:align-middle;
+}
+
+td:last-child {
+    @apply border-b-0;
+}
+
+tbody tr, tbody {
+    @apply px-2 py-1.5 text-left text-xs font-medium border;
+}
+
+tbody tr:nth-child(odd) {
+    @apply bg-gray-300/50 hover:bg-gray-400/50;
+}
+
+tbody tr:nth-child(even) {
+    @apply bg-gray-100/50 hover:bg-gray-400/50 ;
+}
+
+.table-sort {
+    @apply w-2.5 h-2.5 cursor-pointer
+}
+</style>
