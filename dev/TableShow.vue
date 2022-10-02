@@ -1,26 +1,28 @@
 <template>
-    <div class="grid gap-4">
-        <span class="text-xs"> Simple </span> 
-        <TVTable
-            :items="items"
-            :fields="fieldsSimple"
-        >
-        </TVTable>
-
+    <div>
+        <div class="mb-3">
+            <span class="text-xs "> Simple </span> 
+            <TVTable
+                :items="items"
+                :fields="fieldsSimple"
+            />
+        </div>
         <hr>
-        
-        <span class="text-xs">With Props</span>
-        <TVTable
-            :items="items"
-            :fields="fields"
-            multiple-sortable
-        >
-            <template #cell:username="{ item }">
-                {{ item.emoji }} - {{ item.username }}
-            </template>
-        </TVTable>
-
-
+        <div>
+            <span class="text-xs">With Props</span>
+            <TVTable
+                :items="filterItems"
+                :fields="fields"
+                multiple-sortable
+                :total-rows="items.length"
+                :per-page="perPage"
+                @change-page="changePage"
+            >
+                <template #cell:username="{ item }">
+                    {{ item.emoji }} - {{ item.username }}
+                </template>
+            </TVTable>
+        </div>
     </div>
 </template>
 
@@ -29,7 +31,7 @@ import { defineComponent, ref } from 'vue';
 import TVTable from '../src/components/TVTable.vue';
 
 defineComponent({
-  name: 'Table',
+    name: 'TableShow',
 }) 
 
 const fields = ref([
@@ -92,5 +94,13 @@ const items = ref([
         emoji: '🐦'
     },
 ])
+
+const perPage = ref(2)
+
+const filterItems = ref(items.value.slice(0, 1 * perPage.value))
+
+const changePage = (values) => {
+    filterItems.value = items.value.slice(values.from, values.to)
+}
 
 </script>

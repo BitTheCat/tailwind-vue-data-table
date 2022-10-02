@@ -2,7 +2,9 @@
 
 Simple DataTable with slots, class and style modification for tr and td, sortable by columns (only graphics with click event).
 
-<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/tvdatatable.jpg"/>
+Contains the TVPaginator component that can be disabled via prop or used in stand-alone mode.
+
+<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvdatatable.jpg"/>
 
 ### Install
 ```
@@ -15,7 +17,10 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 ```
 
 ### Next additions
-- Pagination (can be disabled)
+- Pagination (can be disabled) ✔️
+ 
+<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvpagination.jpg"/>
+
 - Select row column (with checkbox)
 - Row detail
 - ...
