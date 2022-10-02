@@ -1,5 +1,9 @@
 <template>
-    <table class="min-w-full ">
+    <div v-if="!hidePagination && !hideSummary" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
+        <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
+    </div>
+    
+    <table class="min-w-full">
         <thead class="bg-gray-300 border">
             <tr class="divide-x divide-y">
                 <th
@@ -61,10 +65,18 @@
             </tr>
         </tbody>
     </table>
+
+    <TVPagination
+        v-if="totalRows > perPage && !hidePagination"
+        v-model:currentPage="localCurrentPage"
+        :total-rows="totalRows"
+        :per-page="perPage"
+    />
 </template>
 
 <script setup>
-import {defineComponent, ref} from 'vue';
+import {defineComponent, ref, watch} from 'vue';
+import TVPagination from './TVPagination.vue';
 
 defineComponent({
     name: 'TVTable'
@@ -79,16 +91,32 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
+    totalRows: {
+        type: Number,
+        default: 0
+    },
+    perPage: {
+        type: Number,
+        default: 15
+    },
+    hideSummary: Boolean,
+    hidePagination: Boolean,
     multipleSortable: Boolean,
 })
 
-const emit = defineEmits(['updateSortable'])
+const emit = defineEmits(['updateSortable', 'changePage'])
+
+const totalRows = ref(props.totalRows || props.items.length || 0)
+const fromRow = ref(0)
+const toRow = ref(0)
+const localCurrentPage = ref(props.currentPage)
 
 const getField = (item, field) => {
     return item[field]
 }
 
 const sortable = ref({})
+
 const updateSortable = (key, sort) => {
     props.multipleSortable 
         ? sortable.value[key] = sort
@@ -96,4 +124,23 @@ const updateSortable = (key, sort) => {
 
     emit('updateSortable', sortable.value)
 }
+
+const refreshCounter = () => {
+    if (localCurrentPage.value === 0) {
+        return
+    }
+    let from = (totalRows.value > 0) ? 1 : 0
+    if (localCurrentPage.value > 1) {
+        from = from + (localCurrentPage.value - 1) * props.perPage
+    }
+    let to = Math.min(from + props.perPage - 1, totalRows.value)
+    fromRow.value = from - 1
+    toRow.value = to
+}
+
+watch(() => localCurrentPage.value, (value) => {
+    refreshCounter()
+    emit('changePage', {page: value, from: fromRow.value, to: toRow.value})
+}, {immediate: true})
+
 </script>

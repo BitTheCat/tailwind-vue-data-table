@@ -8,7 +8,8 @@
         "table",
         "sortable",
         "data",
-        "vue3"
+        "vue3",
+        "paginator"
     ],
     "homepage": "https://github.com/BitTheCat/tailwind-vue-data-table",
     "main": "dist/library.js",
@@ -27,12 +28,15 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "build-package": "rollup -c"
+        "build-package": "rollup -c",
+        "eslint": "npx eslint  \"src/**.{js,vue}\""
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.4.0",
         "@vitejs/plugin-vue": "^2.0.1",
         "autoprefixer": "^10.4.0",
+        "eslint": "^8.24.0",
+        "eslint-plugin-vue": "^9.5.1",
         "rollup": "^2.79.1",
         "rollup-plugin-peer-deps-external": "^2.2.4",
         "rollup-plugin-vue": "^6.0.0",
