@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!hidePagination && !hideSummary" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
+    <div v-if="!hidePagination && totalRows != 0" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
         <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
     </div>
     
@@ -67,9 +67,9 @@
     </table>
 
     <TVPagination
-        v-if="totalRows > perPage && !hidePagination"
+        v-if="localTotalRows > perPage && !hidePagination"
         v-model:currentPage="localCurrentPage"
-        :total-rows="totalRows"
+        :total-rows="localTotalRows"
         :per-page="perPage"
     />
 </template>
@@ -103,14 +103,13 @@ const props = defineProps({
         type: Number,
         default: 15
     },
-    hideSummary: Boolean,
     hidePagination: Boolean,
     multipleSortable: Boolean,
 })
 
 const emit = defineEmits(['updateSortable', 'changePage'])
 
-const totalRows = ref(props.totalRows || props.items.length || 0)
+const localTotalRows = ref(props.totalRows || props.items.length || 0)
 const fromRow = ref(0)
 const toRow = ref(0)
 const localCurrentPage = ref(props.currentPage)
@@ -133,11 +132,11 @@ const refreshCounter = () => {
     if (localCurrentPage.value === 0) {
         return
     }
-    let from = (totalRows.value > 0) ? 1 : 0
+    let from = (localTotalRows.value > 0) ? 1 : 0
     if (localCurrentPage.value > 1) {
         from = from + (localCurrentPage.value - 1) * props.perPage
     }
-    let to = Math.min(from + props.perPage - 1, totalRows.value)
+    let to = Math.min(from + props.perPage - 1, localTotalRows.value)
     fromRow.value = from - 1
     toRow.value = to
 }

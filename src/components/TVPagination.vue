@@ -28,7 +28,7 @@
         </div>
         <div class="sm:flex hidden">
             <template v-for="page of pages" :key="`page_${page}`">
-                <p :class="paginationClass(page)" @click="changePage(page)">
+                <p class="text-sm font-medium leading-none cursor-pointer link px-2" :class="paginationClass(page)" @click="changePage(page)">
                     {{ page }}
                 </p>
             </template>
@@ -121,9 +121,7 @@ const pages = computed(() => {
 })
 
 const paginationClass = (page) => {
-    let classes = [
-        'text-sm font-medium leading-none cursor-pointer link px-2',
-    ]
+    let classes = []
     if (page === props.currentPage) {
         classes.push('rounded-xl bg-gray-400 text-white')
     }
