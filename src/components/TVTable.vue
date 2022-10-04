@@ -91,6 +91,10 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
+    currentPage: {
+        type: Number,
+        default: 1
+    },
     totalRows: {
         type: Number,
         default: 0
