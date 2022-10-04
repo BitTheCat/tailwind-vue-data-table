@@ -11,6 +11,15 @@ Contains the TVPaginator component that can be disabled via prop or used in stan
 npm i @bitthecat/tailwind-vue-data-table
 ```
 
+Add this code inside **tailwind.config.*** to compile the css library
+
+``` js
+content: [
+    ...
+    './node_modules/@bitthecat/tailwind-vue-data-table/dist/*.js',
+],
+```
+
 ### Use in Vue
 ``` js
 import { TVTable } from '@bitthecat/tailwind-vue-data-table' 

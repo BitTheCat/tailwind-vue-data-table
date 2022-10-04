@@ -11,6 +11,7 @@
         <div>
             <span class="text-xs">With Props</span>
             <TVTable
+                v-model:currentPage="currentPage"
                 :items="filterItems"
                 :fields="fields"
                 multiple-sortable
@@ -94,6 +95,8 @@ const items = ref([
         emoji: '🐦'
     },
 ])
+
+const currentPage = ref(1)
 
 const perPage = ref(2)
 
