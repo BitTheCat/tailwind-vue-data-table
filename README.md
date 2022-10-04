@@ -40,7 +40,12 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 
 | Props | Default | Description |
 | --- | --- | --- |
+| currentPage | 1 | current displayed page (used by the paginator) |
+| totalRows | 0 | total number of rows (used by the paginator) |
+| perPage | 15 | number of rows displayed for page (used by the paginator) |
+| hidePagination | false | enables for hide paginator |
 | multipleSortable | false | enables multiple sortable for table header |
+
 ### Slots
 
 | Props | Description |
@@ -73,6 +78,7 @@ data retrieves the field value
 | Event | Description |
 | --- | --- |
 | updateSortable | emit the sortable field/fields |
+| changePage | emit the page change |
 
 <hr>
 
