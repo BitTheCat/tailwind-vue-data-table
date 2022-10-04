@@ -6,6 +6,12 @@
     <table class="min-w-full">
         <thead class="bg-gray-300 border">
             <tr class="divide-x divide-y">
+                <th 
+                    v-if="enableCheck" 
+                    class="px-2 py-1.5" 
+                    style="width: 30px" 
+                />
+
                 <th
                     v-for="field in fields"
                     :key="field.label"
@@ -51,6 +57,14 @@
                 :key="item.label" 
                 class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
             >
+                <td
+                    v-if="enableCheck"
+                    :key="`check_${item.label}`"
+                    class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
+                >
+                    <input id="checkbox" v-model="selectedRow" :value="item" type="checkbox" @change="emit('checkRow', item)" />
+                </td>
+
                 <td
                     v-for="field in fields"
                     :key="field.key"
@@ -105,9 +119,10 @@ const props = defineProps({
     },
     hidePagination: Boolean,
     multipleSortable: Boolean,
+    enableCheck: Boolean,
 })
 
-const emit = defineEmits(['updateSortable', 'changePage'])
+const emit = defineEmits(['updateSortable', 'changePage', 'checkRow'])
 
 const localTotalRows = ref(props.totalRows || props.items.length || 0)
 const fromRow = ref(0)
@@ -119,6 +134,7 @@ const getField = (item, field) => {
 }
 
 const sortable = ref({})
+const selectedRow = ref([])
 
 const updateSortable = (key, sort) => {
     props.multipleSortable 

@@ -17,12 +17,18 @@
                 multiple-sortable
                 :total-rows="items.length"
                 :per-page="perPage"
+                enable-check
                 @change-page="changePage"
+                @check-row="checkRow"
             >
                 <template #cell:username="{ item }">
                     {{ item.emoji }} - {{ item.username }}
                 </template>
             </TVTable>
+            Selected: 
+            <pre>
+                {{ selectRow }}
+            </pre>
         </div>
     </div>
 </template>
@@ -104,6 +110,17 @@ const filterItems = ref(items.value.slice(0, 1 * perPage.value))
 
 const changePage = (values) => {
     filterItems.value = items.value.slice(values.from, values.to)
+}
+
+const selectRow = ref([])
+const checkRow = (value) => {
+    console.log(selectRow.value.includes(value))
+    if (selectRow.value.includes(value)) {
+        let index = selectRow.value.indexOf(value)
+        selectRow.value.splice(index, 1)
+    } else {
+        selectRow.value.push(value)
+    }
 }
 
 </script>
