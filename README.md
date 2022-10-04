@@ -30,8 +30,11 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
  
 <img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvpagination.jpg"/>
 
-- Select row column (with checkbox)
+- Select row column (with checkbox) ✔️
+
+<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_checkbox.jpg"/>
 - Row detail
+- Row Clicked event
 - ...
 <hr>
 
@@ -45,6 +48,7 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 | perPage | 15 | number of rows displayed for page (used by the paginator) |
 | hidePagination | false | enables for hide paginator |
 | multipleSortable | false | enables multiple sortable for table header |
+| enableCheck | false | enables checkbox for table row |
 
 ### Slots
 
@@ -79,6 +83,7 @@ data retrieves the field value
 | --- | --- |
 | updateSortable | emit the sortable field/fields |
 | changePage | emit the page change |
+| checkRow | emit the row item |
 
 <hr>
 
