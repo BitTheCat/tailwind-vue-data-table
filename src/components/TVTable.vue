@@ -52,16 +52,18 @@
             </tr>
         </thead>
         <tbody class="px-2 py-1.5 text-left text-xs font-medium border">
-            <template v-for="(item) in items" :key="item.label">
+            <template v-for="(item, index) in items" :key="item.label">
                 <tr  
-                    class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
+                    class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border hover:bg-gray-400/50"
+                    :class="index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'"
+                    @click="rowClicked(item)"
                 >
                     <td
                         v-if="enableCheck"
                         :key="`check_${item.label}`"
                         class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
                     >
-                        <input id="checkbox" v-model="selectedRow" :value="item" type="checkbox" @change="emit('checkRow', item)" />
+                        <input id="checkbox" v-model="selectedRows" :value="item" type="checkbox" @click.stop="emit('checkRow', item)" />
                     </td>
 
                     <td
@@ -81,10 +83,13 @@
                         </slot>
                     </td>
                 </tr>
-                <tr v-if="item._showDetails">
-                    <td :colspan="enableCheck ? fields.length + 1 : fields.length">
-                        <slot name="row-details" :item="item" />  
-                    </td>
+                <tr 
+                    v-if="item._showDetails" 
+                    :class="index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'"
+                    >
+                        <td :colspan="enableCheck ? fields.length + 1 : fields.length">
+                            <slot name="row-details" :item="item" />
+                        </td>
                 </tr>
             </template>
         </tbody>
@@ -132,7 +137,12 @@ const props = defineProps({
     enableCheck: Boolean,
 })
 
-const emit = defineEmits(['updateSortable', 'changePage', 'checkRow'])
+const emit = defineEmits([
+    'updateSortable', 
+    'changePage', 
+    'checkRow', 
+    'rowClicked'
+])
 
 
 const localTotalRows = computed(() => {
@@ -152,7 +162,17 @@ const toggleDetails = (value) => {
 }
 
 const sortable = ref({})
-const selectedRow = ref([])
+const selectedRows = ref([])
+
+const rowClicked = (item) => {
+    if (selectedRows.value.includes(item)) {
+        let index = selectedRows.value.indexOf(item)
+        selectedRows.value.splice(index, 1)
+    } else {
+        selectedRows.value.push(item)
+    }
+    emit('rowClicked', item)
+} 
 
 const updateSortable = (key, sort) => {
     props.multipleSortable 
