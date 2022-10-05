@@ -85,7 +85,12 @@ data retrieves the field value
 | --- | --- |
 | updateSortable | emit the sortable field/fields |
 | changePage | emit the page change |
-| checkRow | emit the row item |
+| checkRow | emit the row item when user click on row checkbox |
+| rowClicked | emit the row item when user click on row |
+
+##### Notes
+
+##### Any __@click__ event of elements within the row triggers the rowClicked event, to get around this we need to __use @click.stop to prevent the propagation of the event__
 
 <hr>
 
@@ -94,7 +99,7 @@ data retrieves the field value
 
 | Props | Description |
 | --- | --- |
-| key | Th Title |
+| key | th Title |
 | label | index of value |
 | sortable | the default setting is false, if set to true a symbol appears for sorting |
 | thStyle | used for overwrite the th style |

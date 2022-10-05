@@ -1,13 +1,14 @@
 <template>
     <div>
         <div class="mb-3">
-            <span class="text-xs "> Simple </span> 
+            <span class="text-xs"> Simple </span> 
             <TVTable
                 ref="tvtTableSimple"
                 :items="cloneItems"
                 :fields="fieldsSimple"
                 enable-check
                 @check-row="checkRow"
+                @row-clicked="checkRow"
             />
         </div>
         <hr>
@@ -24,10 +25,11 @@
                 enable-check
                 @change-page="changePage"
                 @check-row="checkRow"
+                @row-clicked="checkRow"
             >
                 <template #cell:username="row">
                     {{ row.item.emoji }} - {{ row.item.username }}
-                    <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @change="row.toggleDetails(row.item)" />
+                    <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @click.stop="row.toggleDetails(row.item)" />
                 </template>
 
                 <template #row-details>
@@ -96,7 +98,6 @@ const items = ref([
         username: 'cat',
         email: 'cat@tvdatatable.test',
         emoji: '🐈',
-        _showDetails: true
     },
     {
         id: '2',
