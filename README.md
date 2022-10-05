@@ -33,8 +33,10 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 - Select row column (with checkbox) ✔️
 
 <img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_checkbox.jpg"/>
-- Row detail
+- Row detail ✔️
+  
 - Row Clicked event
+  
 - ...
 <hr>
 
@@ -99,3 +101,4 @@ data retrieves the field value
 | tdStyle | used for overwrite the td style |
 | thClass | used for overwrite the th class |
 | tdClass | used for overwrite the td class |
+| _showDetails | used for show row details (default false) |

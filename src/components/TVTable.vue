@@ -52,31 +52,41 @@
             </tr>
         </thead>
         <tbody class="px-2 py-1.5 text-left text-xs font-medium border">
-            <tr 
-                v-for="(item) in items" 
-                :key="item.label" 
-                class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
-            >
-                <td
-                    v-if="enableCheck"
-                    :key="`check_${item.label}`"
-                    class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
+            <template v-for="(item) in items" :key="item.label">
+                <tr  
+                    class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border odd:bg-gray-300/50 even:bg-gray-100/50 hover:bg-gray-400/50"
                 >
-                    <input id="checkbox" v-model="selectedRow" :value="item" type="checkbox" @change="emit('checkRow', item)" />
-                </td>
+                    <td
+                        v-if="enableCheck"
+                        :key="`check_${item.label}`"
+                        class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
+                    >
+                        <input id="checkbox" v-model="selectedRow" :value="item" type="checkbox" @change="emit('checkRow', item)" />
+                    </td>
 
-                <td
-                    v-for="field in fields"
-                    :key="field.key"
-                    class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
-                    :class="field.tdClass"
-                    :style="field.tdStyle"
-                >
-                    <slot :item="item" :data="getField(item, field.key)" :name="`cell:${field.label}`">
-                        {{ getField(item, field.key) }}
-                    </slot>
-                </td>
-            </tr>
+                    <td
+                        v-for="field in fields"
+                        :key="field.key"
+                        class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
+                        :class="field.tdClass"
+                        :style="field.tdStyle"
+                    >
+                        <slot 
+                            :name="`cell:${field.label}`"
+                            :item="item" 
+                            :data="getField(item, field.key)"
+                            :toggle-details="toggleDetails"
+                        >
+                            {{ getField(item, field.key, '') }}
+                        </slot>
+                    </td>
+                </tr>
+                <tr v-if="item._showDetails">
+                    <td :colspan="enableCheck ? fields.length + 1 : fields.length">
+                        <slot name="row-details" :item="item" />  
+                    </td>
+                </tr>
+            </template>
         </tbody>
     </table>
 
@@ -89,7 +99,7 @@
 </template>
 
 <script setup>
-import {defineComponent, ref, watch} from 'vue';
+import {computed, defineComponent, ref, watch} from 'vue';
 import TVPagination from './TVPagination.vue';
 
 defineComponent({
@@ -124,13 +134,21 @@ const props = defineProps({
 
 const emit = defineEmits(['updateSortable', 'changePage', 'checkRow'])
 
-const localTotalRows = ref(props.totalRows || props.items.length || 0)
+
+const localTotalRows = computed(() => {
+    return props.totalRows || props.items.length || 0
+})
+
 const fromRow = ref(0)
 const toRow = ref(0)
 const localCurrentPage = ref(props.currentPage)
 
-const getField = (item, field) => {
-    return item[field]
+const getField = (item, field, def) => {
+    return item[field] || def
+}
+
+const toggleDetails = (value) => {
+    return value._showDetails = !value._showDetails
 }
 
 const sortable = ref({})
