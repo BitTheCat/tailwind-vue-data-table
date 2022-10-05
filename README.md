@@ -35,9 +35,10 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 <img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_checkbox.jpg"/>
 - Row detail ✔️
   
-- Row Clicked event
+- Row Clicked event ✔️
   
 - ...
+  
 <hr>
 
 ## Table
