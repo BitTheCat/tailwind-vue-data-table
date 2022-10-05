@@ -3,14 +3,18 @@
         <div class="mb-3">
             <span class="text-xs "> Simple </span> 
             <TVTable
-                :items="items"
+                ref="tvtTableSimple"
+                :items="cloneItems"
                 :fields="fieldsSimple"
+                enable-check
+                @check-row="checkRow"
             />
         </div>
         <hr>
         <div>
             <span class="text-xs">With Props</span>
             <TVTable
+                ref="tvtTableProps"
                 v-model:currentPage="currentPage"
                 :items="filterItems"
                 :fields="fields"
@@ -21,8 +25,13 @@
                 @change-page="changePage"
                 @check-row="checkRow"
             >
-                <template #cell:username="{ item }">
-                    {{ item.emoji }} - {{ item.username }}
+                <template #cell:username="row">
+                    {{ row.item.emoji }} - {{ row.item.username }}
+                    <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @change="row.toggleDetails(row.item)" />
+                </template>
+
+                <template #row-details>
+                    ROW-DETAILS ROW-DETAILS ROW-DETAILS
                 </template>
             </TVTable>
             Selected: 
@@ -54,7 +63,7 @@ const fields = ref([
         thStyle: 'background: lightblue',
         thClass: 'text-white',
         tdClass: 'text-center',
-        sortable: true
+        sortable: true,
     },
     {
         label: 'email',
@@ -86,7 +95,8 @@ const items = ref([
         id: '1',
         username: 'cat',
         email: 'cat@tvdatatable.test',
-        emoji: '🐈'
+        emoji: '🐈',
+        _showDetails: true
     },
     {
         id: '2',
@@ -108,13 +118,15 @@ const perPage = ref(2)
 
 const filterItems = ref(items.value.slice(0, 1 * perPage.value))
 
+const cloneItems = JSON.parse(JSON.stringify(items.value))
+
 const changePage = (values) => {
     filterItems.value = items.value.slice(values.from, values.to)
 }
 
 const selectRow = ref([])
+
 const checkRow = (value) => {
-    console.log(selectRow.value.includes(value))
     if (selectRow.value.includes(value)) {
         let index = selectRow.value.indexOf(value)
         selectRow.value.splice(index, 1)
