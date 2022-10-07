@@ -6,6 +6,13 @@ Contains the TVPaginator component that can be disabled via prop or used in stan
 
 <img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvdatatable.jpg"/>
 
+<hr>
+
+#### ❗️ *__Documentation soon available__* 
+##### For now, check under dev/TableShow.vue to see the table in action
+
+<hr>
+
 ### Install
 ```
 npm i @bitthecat/tailwind-vue-data-table
@@ -43,7 +50,7 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 - Busy state ✔️
 <img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_busy_state.jpg"/>
   
-- Additional rows up the header
+- Additional rows up the header ✔️
 
 - Select rows
 
@@ -77,7 +84,8 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 | items | table data |
 | fields | data fields |
 | #cell:FIELD_NAME | used for overwrite |
-
+| #row-details | row details, you need to use row.toggleDetails(row.item) within a template that contains an icon/button to toggle it |
+| #header-row | used for additional rows up the header |
 
 slot 'cell:' has item or data props
 
