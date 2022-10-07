@@ -33,10 +33,26 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 - Select row column (with checkbox) ✔️
 
 <img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_checkbox.jpg"/>
+
 - Row detail ✔️
+
+<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_row_details.jpg"/>
   
 - Row Clicked event ✔️
+
+- Busy state ✔️
+<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvtable_busy_state.jpg"/>
   
+- Additional rows up the header
+
+- Select rows
+
+- Provide item from api url
+
+- Footer
+
+- Refresh table
+
 - ...
   
 <hr>
@@ -52,6 +68,7 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 | hidePagination | false | enables for hide paginator |
 | multipleSortable | false | enables multiple sortable for table header |
 | enableCheck | false | enables checkbox for table row |
+| busy | false | enables spinner for loading data |
 
 ### Slots
 
@@ -108,3 +125,7 @@ data retrieves the field value
 | thClass | used for overwrite the th class |
 | tdClass | used for overwrite the td class |
 | _showDetails | used for show row details (default false) |
+
+<hr>
+
+This project is licensed under the MIT license. See [LICENSE](LICENSE).
