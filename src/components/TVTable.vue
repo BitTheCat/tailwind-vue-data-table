@@ -20,7 +20,7 @@
                     :class="field.thClass"
                     :style="field.thStyle"
                 >
-                    <div class="flex justify-left items-center">
+                    <div class="flex justify-between items-center">
                         <span>
                             {{ field.label }}
                         </span>
