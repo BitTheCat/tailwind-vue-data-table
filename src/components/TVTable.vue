@@ -3,8 +3,9 @@
         <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
     </div>
     
-    <table class="min-w-full">
-        <thead class="bg-gray-300 border">
+    <table ref="TVTABLE" class="min-w-full" v-bind="attrs">
+        <thead class="bg-gray-300 border divide-x divide-y">
+            <slot v-if="slots['header-row']" name="header-row" />
             <tr class="divide-x divide-y">
                 <th 
                     v-if="enableCheck" 
@@ -64,9 +65,9 @@
                         </div>
                     </td>
                 </tr>
-            <template v-for="(item, index) in items" v-else :key="item.label">
+            <template v-for="(item, index) in items" v-else :key="item.id">
                 <tr 
-                    :id="`TV_TABLE_row_${item.label}`"  
+                    :id="`TVTABLE_row_${index}_${item.id}`"  
                     class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border hover:bg-gray-400/50"
                     :class="index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'"
                     @click="rowClicked(item)"
@@ -74,7 +75,7 @@
                     <td
                         v-if="enableCheck"
                         :key="`check_${item.label}`"
-                        class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
+                        class="px-2 py-1.5 align-top table-cell last:border-b-0"
                     >
                         <input id="checkbox" v-model="selectedRows" :value="item" type="checkbox" @click.stop="emit('checkRow', item)" />
                     </td>
@@ -82,7 +83,7 @@
                     <td
                         v-for="field in fields"
                         :key="field.key"
-                        class="px-2 py-1.5 align-top lg:table-cell last:border-b-0"
+                        class="px-2 py-1.5 align-top table-cell last:border-b-0"
                         :class="field.tdClass"
                         :style="field.tdStyle"
                     >
@@ -99,10 +100,10 @@
                 <tr 
                     v-if="item._showDetails" 
                     :class="index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'"
-                    >
-                        <td :colspan="enableCheck ? fields.length + 1 : fields.length">
-                            <slot name="row-details" :item="item" />
-                        </td>
+                >
+                    <td :colspan="enableCheck ? fields.length + 1 : fields.length">
+                        <slot name="row-details" :item="item" />
+                    </td>
                 </tr>
             </template>
         </tbody>
@@ -117,12 +118,15 @@
 </template>
 
 <script setup>
-import {computed, defineComponent, ref, watch} from 'vue';
+import {computed, defineComponent, ref, useAttrs, useSlots, watch} from 'vue';
 import TVPagination from './TVPagination.vue';
 
 defineComponent({
     name: 'TVTable'
 })
+
+const slots = useSlots();
+const attrs = useAttrs();
 
 const props = defineProps({
     items: {
