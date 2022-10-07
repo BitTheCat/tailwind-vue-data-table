@@ -107,6 +107,9 @@
                 </tr>
             </template>
         </tbody>
+        <tfoot class="bg-gray-300 border divide-x divide-y">
+            <slot v-if="slots['footer-row']" name="footer-row" />
+        </tfoot>
     </table>
 
     <TVPagination
