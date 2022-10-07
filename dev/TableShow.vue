@@ -30,6 +30,14 @@
                 @check-row="checkRow"
                 @row-clicked="checkRow"
             >
+                <template #header-row>
+                    <tr>
+                        <td colspan="2" />
+                        <td colspan="2" class="bg-white text-center">Header1</td>
+                        <td colspan="1" class="bg-red-300 text-center">Header2</td>
+                    </tr>
+                </template>
+
                 <template #cell:username="row">
                     {{ row.item.emoji }} - {{ row.item.username }}
                 </template>
@@ -42,10 +50,10 @@
                     <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @click.stop="row.toggleDetails(row.item)" />
                 </template>
             </TVTable>
-            Selected: 
-            <pre>
-                {{ selectRow }}
-            </pre>
+            
+            <div class="text-left mt-2">
+                Selected: {{ selectRow }}
+            </div>
         </div>
     </div>
 </template>
