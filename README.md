@@ -54,11 +54,9 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 
 - Select rows (visual) ✔️
 
+- Footer ✔️
+
 - Provide item from api url
-
-- Footer
-
-- Refresh table
 
 - ...
   
@@ -85,7 +83,8 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
 | fields | data fields |
 | #cell:FIELD_NAME | used for overwrite |
 | #row-details | row details, you need to use row.toggleDetails(row.item) within a template that contains an icon/button to toggle it |
-| #header-row | used for additional rows up the header |
+| #header-row | used for additional row up the header |
+| #footer-row | used for show table footer row |
 
 slot 'cell:' has item or data props
 

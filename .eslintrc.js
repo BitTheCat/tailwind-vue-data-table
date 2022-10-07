@@ -8,8 +8,9 @@ module.exports = {
             "error",
             4,
         ],
-        "vue/html-indent": 0,
-        "vue/max-attributes-per-line": 0,
-        "vue/html-self-closing": 0,
+        "vue/html-indent": 'off',
+        "vue/max-attributes-per-line": 'off',
+        "vue/html-self-closing": 'off',
+        "no-unused-vars": 'off',
     }
 } 
