@@ -37,6 +37,14 @@
                     </tr>
                 </template>
 
+                <template #footer-row>
+                    <tr>
+                        <td colspan="1" />
+                        <td colspan="1" class="bg-green-300 text-center"></td>
+                        <td colspan="3" class="bg-red-300 text-center">Footer</td>
+                    </tr>
+                </template>
+
                 <template #cell:username="row">
                     {{ row.item.emoji }} - {{ row.item.username }}
                 </template>
