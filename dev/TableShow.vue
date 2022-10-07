@@ -50,7 +50,7 @@
                     <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @click.stop="row.toggleDetails(row.item)" />
                 </template>
             </TVTable>
-            
+
             <div class="text-left mt-2">
                 Selected: {{ selectRow }}
             </div>
