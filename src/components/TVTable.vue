@@ -69,7 +69,7 @@
                 <tr 
                     :id="`TVTABLE_row_${index}_${item.id}`"  
                     class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border hover:bg-gray-400/50"
-                    :class="index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'"
+                    :class="`${index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'} ${checkSelectedForRow(item) ? 'bg-gray-500/50' : ''}`"
                     @click="rowClicked(item)"
                 >
                     <td
@@ -211,6 +211,10 @@ const refreshCounter = () => {
     let to = Math.min(from + props.perPage - 1, localTotalRows.value)
     fromRow.value = from - 1
     toRow.value = to
+}
+
+const checkSelectedForRow = (item) => {
+    return selectedRows.value.includes(item)
 }
 
 watch(() => localCurrentPage.value, (value) => {

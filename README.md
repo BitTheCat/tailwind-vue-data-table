@@ -52,7 +52,7 @@ import { TVTable } from '@bitthecat/tailwind-vue-data-table'
   
 - Additional rows up the header ✔️
 
-- Select rows
+- Select rows (visual) ✔️
 
 - Provide item from api url
 

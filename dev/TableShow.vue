@@ -6,7 +6,6 @@
                 ref="tvtTableSimple"
                 :items="cloneItems"
                 :fields="fieldsSimple"
-                enable-check
                 :busy="busy"
                 @check-row="checkRow"
                 @row-clicked="checkRow"
