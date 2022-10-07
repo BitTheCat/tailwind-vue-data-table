@@ -7,9 +7,12 @@
                 :items="cloneItems"
                 :fields="fieldsSimple"
                 enable-check
+                :busy="busy"
                 @check-row="checkRow"
                 @row-clicked="checkRow"
             />
+
+            <input class="border mt-2 p-1 rounded bg-gray-300 text-sm" type="button" :value="`Test busy: ${busy ? 'on' : 'off' }`" @click="busy = !busy" />
         </div>
         <hr>
         <div>
@@ -29,11 +32,14 @@
             >
                 <template #cell:username="row">
                     {{ row.item.emoji }} - {{ row.item.username }}
-                    <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @click.stop="row.toggleDetails(row.item)" />
                 </template>
 
                 <template #row-details>
                     ROW-DETAILS ROW-DETAILS ROW-DETAILS
+                </template>
+
+                <template #cell:details="row">
+                    <input id="checkbox" :checked="row.item._showDetails" type="checkbox" @click.stop="row.toggleDetails(row.item)" />
                 </template>
             </TVTable>
             Selected: 
@@ -71,6 +77,12 @@ const fields = ref([
         label: 'email',
         key: 'email',
         tdClass: 'bg-indigo-300'
+    },
+    {
+        label: 'details',
+        key: '',
+        thStyle: 'width: 30px',
+        tdClass: 'flex text-center',
     },
 ])
 
@@ -112,6 +124,8 @@ const items = ref([
         emoji: '🐦'
     },
 ])
+
+const busy = ref(false)
 
 const currentPage = ref(1)
 
