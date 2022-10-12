@@ -69,13 +69,13 @@
                 <tr 
                     :id="`TVTABLE_row_${index}_${item.id}`"  
                     class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border hover:bg-gray-400/50"
-                    :class="`${index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'} ${checkSelectedForRow(item) ? 'bg-gray-500/50' : ''}`"
+                    :class="`${index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'}`"
                     @click="rowClicked(item)"
                 >
                     <td
                         v-if="enableCheck"
                         :key="`check_${item.label}`"
-                        class="px-2 py-1.5 align-top table-cell last:border-b-0"
+                        :class="`px-2 py-1.5 align-top table-cell last:border-b-0 ${checkSelectedForRow(item) ? 'bg-gray-500/50' : ''}`"
                     >
                         <input id="checkbox" v-model="selectedRows" :value="item" type="checkbox" @click.stop="emit('checkRow', item)" />
                     </td>
@@ -84,7 +84,7 @@
                         v-for="field in fields"
                         :key="field.key"
                         class="px-2 py-1.5 align-top table-cell last:border-b-0"
-                        :class="field.tdClass"
+                        :class="`${field.tdClass} ${checkSelectedForRow(item) ? 'bg-gray-500/50' : ''}`"
                         :style="field.tdStyle"
                     >
                         <slot 
