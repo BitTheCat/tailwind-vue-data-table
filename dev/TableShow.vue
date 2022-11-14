@@ -7,6 +7,10 @@
                 :items="cloneItems"
                 :fields="fieldsSimple"
                 :busy="busy"
+                :body-class="'text-lg'"
+                :spinner-class="'text-green-500'"
+                :table-class="'overflow-hidden shadow ring-1 ring-gray-100 md:rounded-lg'"
+                :head-class="'bg-yellow-600'"
                 @check-row="checkRow"
                 @row-clicked="checkRow"
             />
@@ -60,6 +64,7 @@
 
             <div class="text-left mt-2">
                 Selected: {{ selectRow }}
+                CurrentPage: {{ currentPage }}
             </div>
         </div>
     </div>
