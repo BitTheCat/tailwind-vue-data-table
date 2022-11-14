@@ -3,8 +3,8 @@
         <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
     </div>
     
-    <table ref="TVTABLE" class="min-w-full" v-bind="attrs">
-        <thead class="bg-gray-300 border divide-x divide-y">
+    <table ref="TVTABLE" class="min-w-full" :class="tableClass">
+        <thead class="bg-gray-300 text-xs border divide-x divide-y" :class="headClass">
             <slot v-if="slots['header-row']" name="header-row" />
             <tr class="divide-x divide-y">
                 <th 
@@ -16,7 +16,7 @@
                 <th
                     v-for="field in fields"
                     :key="field.label"
-                    class="px-2 py-1.5 text-xs font-medium uppercase"
+                    class="px-2 py-1.5 font-medium uppercase"
                     :class="field.thClass"
                     :style="field.thStyle"
                 >
@@ -52,12 +52,12 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="px-2 py-1.5 text-left text-xs font-medium border">
+        <tbody class="px-2 py-1.5 text-left text-xs font-medium border" :class="bodyClass">
             <tr v-if="busy">
                     <td :colspan="enableCheck ? fields.length + 1 : fields.length">
                         <div class="flex justify-center mb-3 mt-3">
                             <slot name="busy">
-                                <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-black" :class="spinnerClass" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
@@ -68,7 +68,7 @@
             <template v-for="(item, index) in items" v-else :key="item.id">
                 <tr 
                     :id="`TVTABLE_row_${index}_${item.id}`"  
-                    class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left text-xs font-medium border hover:bg-gray-400/50"
+                    class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left font-medium border hover:bg-gray-400/50"
                     :class="`${index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'}`"
                     @click="rowClicked(item)"
                 >
@@ -107,7 +107,7 @@
                 </tr>
             </template>
         </tbody>
-        <tfoot class="bg-gray-300 border divide-x divide-y">
+        <tfoot class="bg-gray-300 border divide-x divide-y" :class="footerClass">
             <slot v-if="slots['footer-row']" name="footer-row" />
         </tfoot>
     </table>
@@ -125,7 +125,8 @@ import {computed, defineComponent, ref, useAttrs, useSlots, watch} from 'vue';
 import TVPagination from './TVPagination.vue';
 
 defineComponent({
-    name: 'TVTable'
+    name: 'TVTable',
+    inheritAttrs: false
 })
 
 const slots = useSlots();
@@ -152,6 +153,26 @@ const props = defineProps({
         type: Number,
         default: 15
     },
+    tableClass: {
+        type: String,
+        default: ''
+    },
+    headClass: {
+        type: String,
+        default: ''
+    },
+    bodyClass: {
+        type: String,
+        default: ''
+    },
+    footerClass: {
+        type: String,
+        default: ''
+    },
+    spinnerClass: {
+        type: String,
+        default: ''
+    },
     hidePagination: Boolean,
     multipleSortable: Boolean,
     enableCheck: Boolean,
@@ -159,10 +180,11 @@ const props = defineProps({
 })
 
 const emit = defineEmits([
+    'update:currentPage',
     'updateSortable', 
     'changePage', 
     'checkRow', 
-    'rowClicked'
+    'rowClicked',
 ])
 
 
@@ -223,6 +245,7 @@ const checkSelectedForRow = (item) => {
 watch(() => localCurrentPage.value, (value) => {
     refreshCounter()
     emit('changePage', {page: value, from: fromRow.value, to: toRow.value})
+    emit('update:currentPage', value)
 }, {immediate: true})
 
 </script>
