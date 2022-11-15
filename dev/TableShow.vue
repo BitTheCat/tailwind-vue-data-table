@@ -7,10 +7,7 @@
                 :items="cloneItems"
                 :fields="fieldsSimple"
                 :busy="busy"
-                :body-class="'text-lg'"
-                :spinner-class="'text-green-500'"
-                :table-class="'overflow-hidden shadow ring-1 ring-gray-100 md:rounded-lg'"
-                :head-class="'bg-yellow-600'"
+                :spinner-class="'text-red-500'"
                 @check-row="checkRow"
                 @row-clicked="checkRow"
             />
@@ -28,6 +25,7 @@
                 multiple-sortable
                 :total-rows="items.length"
                 :per-page="perPage"
+                :row-select-class="'bg-red-500'"
                 enable-check
                 @change-page="changePage"
                 @check-row="checkRow"
