@@ -2,6 +2,7 @@
     <div>
         <div class="mb-3">
             <span class="text-xs"> Simple </span> 
+
             <TVTable
                 ref="tvtTableSimple"
                 :items="cloneItems"
@@ -10,7 +11,23 @@
                 :spinner-class="'text-red-500'"
                 @check-row="checkRow"
                 @row-clicked="checkRow"
-            />
+            >
+                <template #header-row>
+                    <tr>
+                        <td colspan="2" />
+                        <td colspan="1">Header1</td>
+                    </tr>
+                </template>
+
+
+                <template #footer-row>
+                    <tr>
+                        <td colspan="1" />
+                        <td colspan="1" />
+                        <td colspan="1">Footer</td>
+                    </tr>
+                </template>
+            </TVTable>
 
             <input class="border mt-2 p-1 rounded bg-gray-300 text-sm" type="button" :value="`Test busy: ${busy ? 'on' : 'off' }`" @click="busy = !busy" />
         </div>

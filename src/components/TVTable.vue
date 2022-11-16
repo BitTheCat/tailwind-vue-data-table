@@ -3,9 +3,8 @@
         <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
     </div>
     
-    
-    <div class="overflow-x-auto ">
-        <table ref="TVTABLE" class="min-w-full">
+    <div class="overflow-auto">
+        <table ref="TVTABLE" class="overflow-hidden min-w-full">
             <thead class="bg-gray-300 text-xs border divide-x divide-y">
                 <slot v-if="slots['header-row']" name="header-row" />
                 <tr class="divide-x divide-y">
@@ -109,7 +108,9 @@
                     </tr>
                 </template>
             </tbody>
-            <tfoot class="bg-gray-300 border divide-x divide-y">
+            <tfoot 
+                class="text-xs bg-gray-300 border divide-x divide-y"
+            >
                 <slot v-if="slots['footer-row']" name="footer-row" />
             </tfoot>
         </table>
