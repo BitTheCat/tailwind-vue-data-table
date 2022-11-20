@@ -125,7 +125,7 @@
 </template>
 
 <script setup>
-import {computed, defineComponent, ref, useAttrs, useSlots, watch} from 'vue';
+import {computed, defineComponent, ref, useSlots, watch} from 'vue';
 import TVPagination from './TVPagination.vue';
 
 defineComponent({
@@ -134,7 +134,6 @@ defineComponent({
 })
 
 const slots = useSlots();
-const attrs = useAttrs();
 
 const props = defineProps({
     items: {
@@ -167,6 +166,7 @@ const props = defineProps({
     },
     hidePagination: Boolean,
     multipleSortable: Boolean,
+    multipleSelection: Boolean,
     enableCheck: Boolean,
     busy: Boolean,
 })
@@ -200,12 +200,19 @@ const sortable = ref({})
 const selectedRows = ref([])
 
 const rowClicked = (item) => {
-    if (selectedRows.value.includes(item)) {
-        let index = selectedRows.value.indexOf(item)
-        selectedRows.value.splice(index, 1)
+    if (props.multipleSelection) {
+        
+        if (selectedRows.value.includes(item)) {
+            let index = selectedRows.value.indexOf(item)
+            selectedRows.value.splice(index, 1)
+        } else {
+            selectedRows.value.push(item)
+        }
+    
     } else {
-        selectedRows.value.push(item)
+        selectedRows.value = selectedRows.value.includes(item) ? [] : [item]
     }
+
     emit('rowClicked', item)
 } 
 
@@ -231,7 +238,7 @@ const refreshCounter = () => {
 }
 
 const checkSelectedForRow = (item) => {
-    return selectedRows.value.includes(item)
+    return props.multipleSelection ? selectedRows.value.includes(item) : selectedRows.value === item
 }
 
 watch(() => localCurrentPage.value, (value) => {

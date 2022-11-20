@@ -9,8 +9,8 @@
                 :fields="fieldsSimple"
                 :busy="busy"
                 :spinner-class="'text-red-500'"
-                @check-row="checkRow"
-                @row-clicked="checkRow"
+                multiple-selection
+                enable-check
             >
                 <template #header-row>
                     <tr>
@@ -176,13 +176,17 @@ const changePage = (values) => {
 
 const selectRow = ref([])
 
-const checkRow = (value) => {
+const checkRowMultiple = (value) => {
     if (selectRow.value.includes(value)) {
         let index = selectRow.value.indexOf(value)
         selectRow.value.splice(index, 1)
     } else {
         selectRow.value.push(value)
     }
+}
+
+const checkRow = (value) => {
+    selectRow.value = selectRow.value === value ? null : value
 }
 
 </script>
