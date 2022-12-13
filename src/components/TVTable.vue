@@ -4,20 +4,19 @@
     </div>
     
     <div class="overflow-auto">
-        <table ref="TVTABLE" class="overflow-hidden min-w-full">
-            <thead class="bg-gray-300 text-xs border divide-x divide-y">
+        <TTable ref="TVTABLE">
+            <TThead>
                 <slot v-if="slots['header-row']" name="header-row" />
-                <tr class="divide-x divide-y">
-                    <th 
-                        v-if="enableCheck" 
-                        class="px-2 py-1.5" 
+                <TTr class="divide-x divide-y">
+                    <TTh 
+                        v-if="enableCheck"
                         style="width: 30px" 
                     />
 
-                    <th
+                    <TTh
                         v-for="field in fields"
                         :key="field.label"
-                        class="px-2 py-1.5 font-medium uppercase"
+                        class="font-medium uppercase"
                         :class="field.thClass"
                         :style="field.thStyle"
                     >
@@ -50,41 +49,40 @@
                                 </svg>
                             </div>
                         </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="border">
-                <tr v-if="busy">
-                        <td :colspan="enableCheck ? fields.length + 1 : fields.length">
-                            <div class="flex justify-center mb-3 mt-3">
-                                <slot name="busy">
-                                    <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-black" :class="spinnerClass" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                </slot>
-                            </div>
-                        </td>
-                    </tr>
+                    </TTh>
+                </TTr>
+            </TThead>
+            <TTbody>
+                <TTr v-if="busy">
+                    <TTd :colspan="enableCheck ? fields.length + 1 : fields.length">
+                        <div class="flex justify-center mb-3 mt-3">
+                            <slot name="busy">
+                                <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-black" :class="spinnerClass" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </slot>
+                        </div>
+                    </TTd>
+                </TTr>
                 <template v-for="(item, index) in items" v-else :key="item.id">
-                    <tr 
+                    <TTr 
                         :id="`TVTABLE_row_${index}_${item.id}`"  
                         class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left border hover:bg-gray-400/50"
                         :class="`${index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'}`"
                         @click="rowClicked(item)"
                     >
-                        <td
+                        <TTd
                             v-if="enableCheck"
                             :key="`check_${item.label}`"
-                            :class="`px-2 py-1.5 align-top table-cell last:border-b-0 ${checkSelectedForRow(item) ? rowSelectClass || 'bg-gray-400/50' : ''}`"
+                            :class="`${checkSelectedForRow(item) ? rowSelectClass || 'bg-gray-400/50' : ''}`"
                         >
                             <input id="checkbox" v-model="selectedRows" :value="item" type="checkbox" @click.stop="emit('checkRow', item)" />
-                        </td>
+                        </TTd>
 
-                        <td
+                        <TTd
                             v-for="field in fields"
                             :key="field.key"
-                            class="px-2 py-1.5 align-top table-cell last:border-b-0"
                             :class="`${field.tdClass ?? ''} ${checkSelectedForRow(item) ? rowSelectClass || 'bg-gray-400/50' : ''}`"
                             :style="field.tdStyle"
                         >
@@ -96,24 +94,24 @@
                             >
                                 {{ getField(item, field.key, '') }}
                             </slot>
-                        </td>
-                    </tr>
-                    <tr 
+                        </TTd>
+                    </TTr>
+                    <TTr 
                         v-if="item._showDetails" 
                         :class="index % 2 ? 'bg-gray-300/50' : 'bg-gray-100/50'"
                     >
-                        <td :colspan="enableCheck ? fields.length + 1 : fields.length">
+                        <TTd :colspan="enableCheck ? fields.length + 1 : fields.length">
                             <slot name="row-details" :item="item" />
-                        </td>
-                    </tr>
+                        </TTd>
+                    </TTr>
                 </template>
-            </tbody>
+            </TTbody>
             <tfoot 
-                class="text-xs bg-gray-300 border divide-x divide-y"
+                class="tv-tfoot"
             >
                 <slot v-if="slots['footer-row']" name="footer-row" />
             </tfoot>
-        </table>
+        </TTable>
     </div>
 
     <TVPagination
@@ -127,6 +125,12 @@
 <script setup>
 import {computed, defineComponent, ref, useSlots, watch} from 'vue';
 import TVPagination from './TVPagination.vue';
+import TTable from './TTable.vue';
+import TThead from './TThead.vue';
+import TTr from './TTr.vue';
+import TTh from './TTh.vue';
+import TTbody from './TTbody.vue';
+import TTd from './TTd.vue';
 
 defineComponent({
     name: 'TVTable',
