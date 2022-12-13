@@ -1,7 +1,7 @@
 <template>
     <div class="py-8 px-8">
         <div class="font-semibold mb-2">
-            Tailwind Vue DataTable v0.2.2
+            Tailwind Vue DataTable v0.2.3
             <span class="text-xs font-light">by BitTheCat</span>
         </div>
         <div>

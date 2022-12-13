@@ -14,17 +14,17 @@
             >
                 <template #header-row>
                     <tr>
-                        <td colspan="2" />
-                        <td colspan="1">Header1</td>
+                        <td colspan="2" class="bg-red-500" />
+                        <td colspan="2">Header1</td>
                     </tr>
                 </template>
 
 
                 <template #footer-row>
                     <tr>
-                        <td colspan="1" />
-                        <td colspan="1" />
-                        <td colspan="1">Footer</td>
+                        <td colspan="1" class="bg-red-500" />
+                        <td colspan="1" class="bg-green-500"/>
+                        <td colspan="2">Footer</td>
                     </tr>
                 </template>
             </TVTable>
