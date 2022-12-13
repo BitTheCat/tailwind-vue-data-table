@@ -1,0 +1,27 @@
+.tv-table {
+    @apply overflow-hidden min-w-full
+}
+
+.tv-thead {
+   @apply bg-gray-300 text-xs border divide-x divide-y
+}
+
+.tv-th {
+    @apply px-2 py-1.5
+}
+
+.tv-tbody {
+    @apply border
+}
+
+.tv-tr {
+    /*  */
+}
+
+.tv-td {
+    @apply px-2 py-1.5 align-top table-cell last:border-b-0
+}
+
+.tv-tfoot {
+    @apply text-xs bg-gray-300 border divide-x divide-y
+}
