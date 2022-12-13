@@ -9,22 +9,22 @@
                 :fields="fieldsSimple"
                 :busy="busy"
                 :spinner-class="'text-red-500'"
-                @check-row="checkRow"
-                @row-clicked="checkRow"
+                multiple-selection
+                enable-check
             >
                 <template #header-row>
                     <tr>
-                        <td colspan="2" />
-                        <td colspan="1">Header1</td>
+                        <td colspan="2" class="bg-red-500" />
+                        <td colspan="2">Header1</td>
                     </tr>
                 </template>
 
 
                 <template #footer-row>
                     <tr>
-                        <td colspan="1" />
-                        <td colspan="1" />
-                        <td colspan="1">Footer</td>
+                        <td colspan="1" class="bg-red-500" />
+                        <td colspan="1" class="bg-green-500"/>
+                        <td colspan="2">Footer</td>
                     </tr>
                 </template>
             </TVTable>
@@ -176,13 +176,17 @@ const changePage = (values) => {
 
 const selectRow = ref([])
 
-const checkRow = (value) => {
+const checkRowMultiple = (value) => {
     if (selectRow.value.includes(value)) {
         let index = selectRow.value.indexOf(value)
         selectRow.value.splice(index, 1)
     } else {
         selectRow.value.push(value)
     }
+}
+
+const checkRow = (value) => {
+    selectRow.value = selectRow.value === value ? null : value
 }
 
 </script>

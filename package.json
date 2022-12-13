@@ -1,6 +1,6 @@
 {
     "name": "@bitthecat/tailwind-vue-data-table",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "keywords": [
         "tailwindcss",
         "vue",
@@ -48,5 +48,8 @@
     },
     "peerDependencies": {
         "vue": "^3.2.6"
+    },
+    "dependencies": {
+        "rollup-plugin-import-css": "^3.1.0"
     }
 }
