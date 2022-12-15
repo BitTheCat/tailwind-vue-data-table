@@ -4,12 +4,13 @@ Simple DataTable with slots, class and style modification for tr and td, sortabl
 
 Contains the TVPaginator component that can be disabled via prop or used in stand-alone mode.
 
-<img src="https://github.com/BitTheCat/tailwind-vue-data-table/blob/main/assets/tvdatatable.jpg"/>
+<a href="https://www.npmjs.com/package/@bitthecat/tailwind-vue-data-table"><img alt="Total Downloads" src="https://img.shields.io/npm/dt/@bitthecat/tailwind-vue-data-table"></a>
+<a href="https://www.npmjs.com/package/@bitthecat/tailwind-vue-data-table"><img alt="Latest Version" src="https://img.shields.io/npm/v/@bitthecat/tailwind-vue-data-table"></a>
+<a href="https://www.npmjs.com/package/@bitthecat/tailwind-vue-data-table"><img alt="License" src="https://img.shields.io/npm/l/@bitthecat/tailwind-vue-data-table"></a>
 
 <hr>
 
-#### ❗️ *__Documentation soon available__* 
-##### For now, check under dev/TableShow.vue to see the table in action or [here](https://bitthecat.github.io/tailwind-vue-data-table.html)
+#### [*__Documentation__* ](https://bitthecat.github.io/tailwind-vue-data-table.html)
 
 <hr>
 
@@ -30,6 +31,11 @@ content: [
 ### Use in Vue
 ``` js
 import { TVTable } from '@bitthecat/tailwind-vue-data-table' 
+```
+
+### Import default css
+``` css
+import "@bitthecat/tailwind-vue-data-table/dist/library.css" 
 ```
 
 <hr>
