@@ -1,15 +1,18 @@
 {
     "name": "@bitthecat/tailwind-vue-data-table",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "keywords": [
         "tailwindcss",
+        "tailwind",
         "vue",
         "datatable",
         "table",
         "sortable",
         "data",
+        "vue",
         "vue3",
-        "paginator"
+        "paginator", 
+        "custom css"
     ],
     "homepage": "https://github.com/BitTheCat/tailwind-vue-data-table",
     "main": "dist/library.js",

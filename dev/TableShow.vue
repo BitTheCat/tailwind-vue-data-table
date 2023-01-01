@@ -44,6 +44,7 @@
                 :per-page="perPage"
                 :row-select-class="'bg-red-500'"
                 enable-check
+                :is-checkbox="false"
                 @change-page="changePage"
                 @check-row="checkRow"
                 @row-clicked="checkRow"
