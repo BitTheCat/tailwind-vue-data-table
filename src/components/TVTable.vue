@@ -77,7 +77,7 @@
                             :key="`check_${item.label}`"
                             :class="`${checkSelectedForRow(item) ? rowSelectClass || 'bg-gray-400/50' : ''}`"
                         >
-                            <input id="checkbox" v-model="selectedRows" :value="item" type="checkbox" @click.stop="emit('checkRow', item)" />
+                            <input id="checkbox" v-model="selectedRows" :value="item" :type="isCheckbox ? 'checkbox' : 'radio'" @click.stop="emit('checkRow', item)" />
                         </TTd>
 
                         <TTd
@@ -173,6 +173,10 @@ const props = defineProps({
     multipleSelection: Boolean,
     enableCheck: Boolean,
     busy: Boolean,
+    isCheckbox: {
+        type: Boolean,
+        default: true
+    },
 })
 
 const emit = defineEmits([
@@ -204,19 +208,23 @@ const sortable = ref({})
 const selectedRows = ref([])
 
 const rowClicked = (item) => {
-    if (props.multipleSelection) {
+    if (props.isCheckbox) {
+        if (props.multipleSelection) {
         
-        if (selectedRows.value.includes(item)) {
-            let index = selectedRows.value.indexOf(item)
-            selectedRows.value.splice(index, 1)
-        } else {
-            selectedRows.value.push(item)
-        }
-    
-    } else {
-        selectedRows.value = selectedRows.value.includes(item) ? [] : [item]
-    }
+            if (selectedRows.value.includes(item)) {
+                let index = selectedRows.value.indexOf(item)
+                selectedRows.value.splice(index, 1)
+            } else {
+                selectedRows.value.push(item)
+            }
 
+        } else {
+            selectedRows.value = selectedRows.value.includes(item) ? [] : [item]
+        }
+    } else {
+        selectedRows.value = selectedRows.value === item ? null : item
+    }
+    
     emit('rowClicked', item)
 } 
 
@@ -242,7 +250,7 @@ const refreshCounter = () => {
 }
 
 const checkSelectedForRow = (item) => {
-    return props.multipleSelection ? selectedRows.value.includes(item) : selectedRows.value === item
+    return props.multipleSelection && props.isCheckbox ? selectedRows.value.includes(item) : selectedRows.value === item
 }
 
 watch(() => localCurrentPage.value, (value) => {
