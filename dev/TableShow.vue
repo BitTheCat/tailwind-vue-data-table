@@ -1,13 +1,44 @@
 <template>
     <div>
         <div class="mb-3">
+            <TVTable
+                ref="tvtTableSimple"
+                :items="[]"
+                :fields="fieldsSimple"
+                :busy="busy"
+                :spinner-class="'text-red-500'"
+                multiple-selection
+                enable-check
+            >
+                <template v-if="customText" #no-items>
+                    Overwrite No Item
+                </template>
+            </TVTable>
+
+
+            <input 
+                class="border mt-2 p-1 rounded bg-gray-300 text-sm" 
+                type="button" 
+                :value="`Test custom message: ${customText ? 'on' : 'off' }`" 
+                @click="customText = !customText" 
+            />
+
+
+            <input 
+                class="border ml-2 mt-2 p-1 rounded bg-gray-300 text-sm" 
+                type="button" 
+                :value="`Test busy: ${busy ? 'on' : 'off' }`" 
+                @click="busy = !busy" 
+            />
+        </div>
+        
+        <div class="mb-3">
             <span class="text-xs"> Simple </span> 
 
             <TVTable
                 ref="tvtTableSimple"
                 :items="cloneItems"
                 :fields="fieldsSimple"
-                :busy="busy"
                 :spinner-class="'text-red-500'"
                 multiple-selection
                 enable-check
@@ -28,8 +59,6 @@
                     </tr>
                 </template>
             </TVTable>
-
-            <input class="border mt-2 p-1 rounded bg-gray-300 text-sm" type="button" :value="`Test busy: ${busy ? 'on' : 'off' }`" @click="busy = !busy" />
         </div>
         <hr>
         <div>
@@ -161,6 +190,7 @@ const items = ref([
 ])
 
 const busy = ref(false)
+const customText = ref(false)
 
 const currentPage = ref(1)
 
