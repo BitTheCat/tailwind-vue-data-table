@@ -1,8 +1,10 @@
 {
     "name": "@bitthecat/tailwind-vue-data-table",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "keywords": [
         "tailwindcss",
+        "customisable",
+        "css",
         "vue",
         "datatable",
         "table",
