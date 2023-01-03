@@ -1,5 +1,8 @@
 # Tailwind Vue Data Table
 
+![](https://img.shields.io/badge/Vue3-318534?logo=vuedotjs&logoColor=white&style=flat-square)
+![](https://img.shields.io/badge/Tailwind-6899C7?logo=tailwindcss&logoColor=white&style=flat-square)
+
 Simple DataTable with slots, class and style modification for tr and td, sortable by columns (only graphics with click event).
 
 Contains the TVPaginator component that can be disabled via prop or used in stand-alone mode.
