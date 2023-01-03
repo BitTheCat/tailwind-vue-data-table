@@ -54,6 +54,7 @@
             </TThead>
             <TTbody>
                 <TTr v-if="busy">
+                    <!-- Spinner -->
                     <TTd :colspan="enableCheck ? fields.length + 1 : fields.length">
                         <div class="flex justify-center mb-3 mt-3">
                             <slot name="busy">
@@ -65,7 +66,19 @@
                         </div>
                     </TTd>
                 </TTr>
+
+                <!-- No Item -->
+                <template v-if="items.length === 0 && !busy">
+                    <TTr>
+                        <TTd :colspan="fields.length + 1">
+                            <slot v-if="slots['no-items']" name="no-items" />
+                            <span v-else class="font-light flex justify-center mb-3 mt-3">{{ noItemText }}</span>
+                        </TTd>
+                    </TTr>
+                </template>
+
                 <template v-for="(item, index) in items" v-else :key="item.id">
+                    <!-- Table Body -->
                     <TTr 
                         :id="`TVTABLE_row_${index}_${item.id}`"  
                         class="divide-x divide-y last:border-b-0 px-2 py-1.5 text-left border hover:bg-gray-400/50"
@@ -77,7 +90,7 @@
                             :key="`check_${item.label}`"
                             :class="`${checkSelectedForRow(item) ? rowSelectClass || 'bg-gray-400/50' : ''}`"
                         >
-                            <input id="checkbox" v-model="selectedRows" :value="item" type="checkbox" @click.stop="emit('checkRow', item)" />
+                            <input id="checkbox" :checked="selectedRows.includes(item)" :value="item" type="checkbox" @click.stop="rowClicked(item)" />
                         </TTd>
 
                         <TTd
@@ -173,6 +186,10 @@ const props = defineProps({
     multipleSelection: Boolean,
     enableCheck: Boolean,
     busy: Boolean,
+    noItemText: {
+        type: String,
+        default: 'No data to display'
+    },
 })
 
 const emit = defineEmits([
