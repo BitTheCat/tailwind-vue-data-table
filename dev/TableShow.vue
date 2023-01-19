@@ -44,9 +44,11 @@
                 ref="tvtTableSimple"
                 :items="cloneItems"
                 :fields="fieldsSimple"
-                :spinner-class="'text-red-500'"
+                :spinner-class="'text-green-500'"
                 multiple-selection
                 enable-check
+                :busy="busy"
+                per-page="1"
             >
                 <template #header-row>
                     <tr>
@@ -79,6 +81,7 @@
                 :per-page="perPage"
                 :row-select-class="'bg-red-500'"
                 enable-check
+                :busy="busy"
                 @change-page="changePage"
                 @check-row="checkRowMultiple"
                 @row-clicked="checkRowMultiple"
