@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!hidePagination && totalRows != 0" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
+    <div v-if="!hidePagination && totalRows != 0 && !hideSummary" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
         <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
     </div>
     
@@ -60,17 +60,13 @@
                 </TTr>
             </TThead>
             <!-- No fields set -->
-            <TTbody v-if="fields.length == 0">
+            <TTbody v-if="fields.length == 0 || busy">
                 <TTr class="divide-x divide-y">
-                    <TTd>
+                    <TTd v-if="fields.length == 0">
                         <span class="font-light flex justify-center mb-3 mt-3">No fields set</span>
                     </TTd>
-                </TTr>
-            </TTbody>
-            <TTbody v-else>
-                <TTr v-if="busy">
-                    <!-- Spinner -->
-                    <TTd :colspan="enableCheck ? fields.length + 1 : fields.length">
+                     <!-- Spinner -->
+                     <TTd v-if="busy" :colspan="enableCheck ? fields.length + 1 : fields.length">
                         <div class="flex justify-center mb-3 mt-3">
                             <slot name="busy">
                                 <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-black" :class="spinnerClass" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -81,7 +77,8 @@
                         </div>
                     </TTd>
                 </TTr>
-
+            </TTbody>
+            <TTbody v-else>
                 <!-- No Item -->
                 <template v-if="items.length === 0 && !busy">
                     <TTr>
@@ -143,7 +140,7 @@
     </div>
 
     <TVPagination
-        v-if="localTotalRows > perPage && !hidePagination"
+        v-if="localTotalRows > perPage && !hidePagination && !busy"
         v-model:currentPage="localCurrentPage"
         :total-rows="localTotalRows"
         :per-page="perPage"
@@ -197,6 +194,7 @@ const props = defineProps({
         default: ''
     },
     hidePagination: Boolean,
+    hideSummary: Boolean,
     multipleSortable: Boolean,
     multipleSelection: Boolean,
     enableCheck: Boolean,
