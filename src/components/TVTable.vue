@@ -1,6 +1,6 @@
 <template>
-    <div v-if="!hidePagination && totalRows != 0 && !hideSummary" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
-        <span>Displaying {{ fromRow + 1 }} to {{ toRow }} of {{ totalRows }} items</span>
+    <div v-if="!hidePagination && totalRows != 0 && !hideSummary && !busy" class="flex items-center justify-end mr-2 mb-2 text-xs font-small text-body">
+        <span>{{ getSummary() }}</span>
     </div>
     
     <div class="overflow-auto">
@@ -203,6 +203,10 @@ const props = defineProps({
         type: String,
         default: 'No data to display'
     },
+    summaryText: {
+        type: String,
+        default: 'Displaying _STR_FROM_ to _STR_TO_ of _STR_TOTAL_ items'
+    },
 })
 
 const emit = defineEmits([
@@ -273,6 +277,13 @@ const refreshCounter = () => {
 
 const checkSelectedForRow = (item) => {
     return props.multipleSelection ? selectedRows.value.includes(item) : selectedRows.value === item
+}
+
+const getSummary = () => {
+    let text = props.summaryText.replace(/_STR_FROM_/, fromRow.value + 1)
+    text = text.replace(/_STR_TO_/, toRow.value)
+    text = text.replace(/_STR_TOTAL_/, localTotalRows.value)
+    return text
 }
 
 watch(() => localCurrentPage.value, (value) => {

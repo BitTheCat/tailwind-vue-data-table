@@ -48,7 +48,8 @@
                 multiple-selection
                 enable-check
                 :busy="busy"
-                per-page="1"
+                :total-rows="cloneItems.length"
+                summary-text="Visualizzo da _STR_FROM_ a _STR_TO_ su _STR_TOTAL_ elementi"
             >
                 <template #header-row>
                     <tr>
