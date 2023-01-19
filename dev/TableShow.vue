@@ -1,6 +1,11 @@
 <template>
     <div>
         <div class="mb-3">
+            <TVTable />
+        </div>
+        
+
+        <div class="mb-3">
             <TVTable
                 ref="tvtTableSimple"
                 :items="[]"
@@ -69,13 +74,14 @@
                 :items="filterItems"
                 :fields="fields"
                 multiple-sortable
+                multiple-selection
                 :total-rows="items.length"
                 :per-page="perPage"
                 :row-select-class="'bg-red-500'"
                 enable-check
                 @change-page="changePage"
-                @check-row="checkRow"
-                @row-clicked="checkRow"
+                @check-row="checkRowMultiple"
+                @row-clicked="checkRowMultiple"
             >
                 <template #header-row>
                     <tr>

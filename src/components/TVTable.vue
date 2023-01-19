@@ -5,7 +5,14 @@
     
     <div class="overflow-auto">
         <TTable ref="TVTABLE">
-            <TThead>
+            <!-- No fields set -->
+            <TThead v-if="fields.length == 0">
+                <TTr class="divide-x divide-y">
+                    <TTh />
+                </TTr>
+            </TThead>
+
+            <TThead v-if="fields.length !== 0">
                 <slot v-if="slots['header-row']" name="header-row" />
                 <TTr class="divide-x divide-y">
                     <TTh 
@@ -52,7 +59,15 @@
                     </TTh>
                 </TTr>
             </TThead>
-            <TTbody>
+            <!-- No fields set -->
+            <TTbody v-if="fields.length == 0">
+                <TTr class="divide-x divide-y">
+                    <TTd>
+                        <span class="font-light flex justify-center mb-3 mt-3">No fields set</span>
+                    </TTd>
+                </TTr>
+            </TTbody>
+            <TTbody v-else>
                 <TTr v-if="busy">
                     <!-- Spinner -->
                     <TTd :colspan="enableCheck ? fields.length + 1 : fields.length">
@@ -155,7 +170,7 @@ const slots = useSlots();
 const props = defineProps({
     items: {
         type: [Object, Array],
-        default: () => {}
+        default: () => []
     },
     fields: {
         type: Array,
