@@ -1,6 +1,6 @@
 {
     "name": "@bitthecat/tailwind-vue-data-table",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "keywords": [
         "tailwindcss",
         "customisable",
@@ -31,19 +31,23 @@
         "build": "vite build",
         "preview": "vite preview",
         "build-package": "rollup -c",
-        "eslint": "npx eslint  \"src/**.{js,vue}\""
+        "eslint": "npx eslint  \"src/**.{js,vue}\"",
+        "test": "vitest"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.4.0",
         "@vitejs/plugin-vue": "^2.0.1",
+        "@vue/test-utils": "^2.2.7",
         "autoprefixer": "^10.4.0",
         "eslint": "^8.24.0",
         "eslint-plugin-vue": "^9.5.1",
+        "jsdom": "^21.0.0",
         "rollup": "^2.79.1",
         "rollup-plugin-peer-deps-external": "^2.2.4",
         "rollup-plugin-vue": "^6.0.0",
         "tailwindcss": "^3.0.7",
         "vite": "^2.7.7",
+        "vitest": "^0.27.2",
         "vue": "^3.2.6",
         "vue-loader": "^16.7.0",
         "vue-router": "^4"
