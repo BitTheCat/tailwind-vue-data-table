@@ -44,9 +44,12 @@
                 ref="tvtTableSimple"
                 :items="cloneItems"
                 :fields="fieldsSimple"
-                :spinner-class="'text-red-500'"
+                :spinner-class="'text-green-500'"
                 multiple-selection
                 enable-check
+                :busy="busy"
+                :total-rows="cloneItems.length"
+                summary-text="Visualizzo da _STR_FROM_ a _STR_TO_ su _STR_TOTAL_ elementi"
             >
                 <template #header-row>
                     <tr>
@@ -79,6 +82,7 @@
                 :per-page="perPage"
                 :row-select-class="'bg-red-500'"
                 enable-check
+                :busy="busy"
                 @change-page="changePage"
                 @check-row="checkRowMultiple"
                 @row-clicked="checkRowMultiple"
