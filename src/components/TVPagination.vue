@@ -7,7 +7,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                :class="size === 'sm' ? 'w-3 h-3' : 'w-4 h-4'" 
+                class="tv-paginator-size" 
                 @click="changePage(1)"
             >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
@@ -20,7 +20,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                :class="size === 'sm' ? 'w-3 h-3' : 'w-4 h-4'" 
+                class="tv-paginator-size" 
                 @click="changePage(undefined, true)"
             >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -30,7 +30,7 @@
             <template v-for="page of pages" :key="`page_${page}`">
                 <p 
                     class="font-medium leading-none cursor-pointer link px-2" 
-                    :class="`${paginationClass(page)} ${size === 'sm' ? 'text-xs' : 'text-md'}`" 
+                    :class="`${paginationClass(page)} tv-paginator-text`" 
                     @click="changePage(page)"
                 >
                     {{ page }}
@@ -44,7 +44,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                :class="size === 'sm' ? 'w-3 h-3' : 'w-4 h-4'" 
+                class="tv-paginator-size" 
                 @click="changePage(undefined)"
             >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -57,7 +57,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                :class="size === 'sm' ? 'w-3 h-3' : 'w-4 h-4'" 
+                class="tv-paginator-size" 
                 @click="changePage(totPages)"
             >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
@@ -87,11 +87,6 @@ const props = defineProps({
         type: Number,
         default: 1
     },
-    size: {
-        type: String,
-        default: 'md',
-        validator: (value) => ['sm', 'md'].includes(value)
-    }
 })
 const emit = defineEmits(['update:currentPage'])
 

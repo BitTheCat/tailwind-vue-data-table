@@ -19,9 +19,21 @@
 }
 
 .tv-td {
-    @apply px-2 py-1.5 align-top table-cell last:border-b-0
+    @apply px-2 py-3.5 align-top table-cell last:border-b-0 text-2xl md:text-sm
 }
 
 .tv-tfoot {
     @apply text-xs bg-gray-300 border divide-x divide-y
+}
+
+.tv-summary-size {
+    @apply text-lg md:text-sm
+}
+
+.tv-paginator-size {
+    @apply w-6 h-6 md:w-4 md:h-4
+}
+
+.tv-paginator-text {
+    @apply text-lg md:text-sm
 }
