@@ -1,6 +1,6 @@
 <template>
     <div v-if="!hidePagination && totalRows != 0 && !hideSummary && !busy" class="flex items-center justify-end mr-2 mb-2 text-body">
-        <span :class="size === 'sm' ? 'text-xs' : 'text-md'">{{ getSummary() }}</span>
+        <span class="tv-summary-size">{{ getSummary() }}</span>
     </div>
     
     <div class="overflow-auto">
@@ -144,7 +144,6 @@
         v-model:currentPage="localCurrentPage"
         :total-rows="localTotalRows"
         :per-page="perPage"
-        :size="size"
     />
 </template>
 
@@ -208,11 +207,6 @@ const props = defineProps({
         type: String,
         default: 'Displaying _STR_FROM_ to _STR_TO_ of _STR_TOTAL_ items'
     },
-    size: {
-        type: String,
-        default: 'md',
-        validator: (value) => ['sm', 'md'].includes(value)
-    }
 })
 
 const emit = defineEmits([
