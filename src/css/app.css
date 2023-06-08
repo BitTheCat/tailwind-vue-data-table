@@ -11,7 +11,7 @@
 }
 
 .tv-tbody {
-    @apply border
+    @apply border bg-gray-100
 }
 
 .tv-tr {
