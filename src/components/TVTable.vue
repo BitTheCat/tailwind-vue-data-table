@@ -1,6 +1,6 @@
 <template>
     <div v-if="!hidePagination && totalRows != 0 && !hideSummary && !busy" class="flex items-center justify-end mr-2 mb-2 text-body">
-        <span class="tv-summary-size">{{ getSummary() }}</span>
+        <span class="tv-summary-size">{{ getSummary }}</span>
     </div>
     
     <div class="overflow-auto">
@@ -279,17 +279,21 @@ const checkSelectedForRow = (item) => {
     return props.multipleSelection ? selectedRows.value.includes(item) : selectedRows.value === item
 }
 
-const getSummary = () => {
+const getSummary = computed(() => {
     let text = props.summaryText.replace(/_STR_FROM_/, fromRow.value + 1)
     text = text.replace(/_STR_TO_/, toRow.value)
     text = text.replace(/_STR_TOTAL_/, localTotalRows.value)
     return text
-}
+})
 
 watch(() => localCurrentPage.value, (value) => {
     refreshCounter()
     emit('changePage', {page: value, from: fromRow.value, to: toRow.value})
     emit('update:currentPage', value)
 }, {immediate: true})
+
+watch(() => localTotalRows.value, (value) => {
+    refreshCounter()
+})
 
 </script>
